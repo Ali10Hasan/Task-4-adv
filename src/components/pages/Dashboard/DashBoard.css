@@ -231,6 +231,9 @@
     justify-content: center;
     align-items: center;
 }
+.pagination .image:hover{
+    border-color: #FEAF00;
+}
 .filter-btn .btn.active{
     background-color: #FEAF00;
 }

@@ -139,8 +139,8 @@ const ReadProducts = () => {
       </div>
 
       <div className="pagination">
-        <div className="image">
-           <img src="/Prev.png" alt="" onClick={onBack}/> 
+        <div className="image" onClick={onBack}>
+           <img src="/Prev.png" alt="" /> 
         </div>
        
         
@@ -148,9 +148,11 @@ const ReadProducts = () => {
           <div className="pagination-window">
               {pages.map((page, index)=>{
                   return(
-                      <div className="filter-btn" key={index}>
+                    <div className="filter-btn" key={index}
+                    >
                           <button 
-                            onClick={()=>{setCurrentPage(index + 1)}} 
+                        
+                           onClick={()=>{setCurrentPage(index + 1)}}
                             className={`btn ${currentPage === index + 1 ? "active" : ""}`} 
                             
                             style={{transform: `translateX(-${currentIndex * 65}px)`}}>
@@ -162,8 +164,8 @@ const ReadProducts = () => {
           </div>
         </div>
         
-        <div className="image">
-        <img src="/Next.png" alt="" onClick={onNext}/>
+        <div className="image" onClick={onNext} >
+        <img src="/Next.png" alt="" />
         </div>
       </div>
     </div>
