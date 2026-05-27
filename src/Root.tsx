@@ -1,21 +1,16 @@
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
-import { Outlet } from 'react-router'
-import NavBar from './Components/Header/NavBar'
 
-import "./App.css"
-import FooterSection from './Components/Contact/FooterSection'
-const Route = () => {
+
+const Root = () => {
+  
   return (
-    <div className='Container'>
-     
-      
-         <NavBar/>
-         <Outlet/>
-         <footer>
-            <FooterSection/>
-        </footer>
+    <div className="root">
+
+        <Outlet/>
     </div>
   )
 }
 
-export default Route
+export default Root

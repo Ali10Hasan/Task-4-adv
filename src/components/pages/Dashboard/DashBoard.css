@@ -1,0 +1,264 @@
+.dashboard-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+.Aside-Container{
+    min-width: 18%;
+    background-color: #F2EAE1;
+}
+.aside-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 91px;
+    padding: 20px;
+}
+.aside-header{
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+}
+.aside-content .aside-header .logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.aside-header .personal-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.personal-info img{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+}
+.personal-info h3{
+    font-size: 18px;
+    font-weight: 700;
+}
+.aside-content .aside-body-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 370px;
+    
+}
+.aside-content .aside-items{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+.aside-content .aside-items .aside-item {
+    width: 185px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent; 
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; 
+    color: #000; 
+}
+
+
+.aside-content .aside-items .aside-item.active{
+    background-color: #FEAF00;
+}
+.aside-last-item{
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    cursor: pointer;
+}
+.aside-last-item img{
+    width: 16px;
+    height: 15px;
+}
+
+.ReadProducts-Container{
+    width: 70%;
+    margin: 24px auto;
+    background-color: #ffffff;
+}
+.read-products-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
+.read-products-content .search-container{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search-container input{
+    width: 90%;
+    border: none;
+    outline: none;
+}
+.read-products-content .add-btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.add-btn button{
+    width: 200px;
+    height: 44px;
+    background-color: #FEAF00;
+    border-radius: 4px;
+    font-weight: 500;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+.products-container{
+    width: 97%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px 40px;
+
+}
+.card-container{
+    width: 218px;
+    height: 238px;
+    border-radius: 16px;
+    box-shadow: 8px 8px 4px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-container .card-details{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:-20px;
+    left: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+.card-container:hover .card-details{
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+.card-container:hover img{
+    filter: blur(3px);
+    opacity: 0.6;
+}
+.card-details h3{
+    font-size: 20px;
+}
+.card-details .btns{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.btns button{
+    width: 81px;
+    height: 34px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btns button:first-child{
+    background-color: #FEAF00;
+}
+.btns button:last-child{
+    background-color: #FE0000;
+}
+.card-container img{
+    width: 80%;
+    height: 90%;
+    display: block;
+    margin: auto;
+    border-radius: 10px;
+}
+.pagination{
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+}
+.pagination-wrapper{
+    width: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.pagination-window{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+.pagination-window img{
+    width: 40px;
+    height: 40px;
+}
+.pagination-window button,.pagination .image{
+    width: 60px;
+    height: 60px;
+    border-radius: 32px;
+    background-color: #ffffff;
+    border: 1px solid #F1F1F1;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.filter-btn .btn.active{
+    background-color: #FEAF00;
+}
+
+/* Skeleton Loader */
+.skeleton {
+    background-color: #f0f0f0;
+    box-shadow: 4px 4px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-image {
+    width: 80%;
+    height: 90%;
+    display: block;
+    margin: 5% auto;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite linear;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+

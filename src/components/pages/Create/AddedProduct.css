@@ -1,0 +1,25 @@
+.Added-product-container{
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+.Added-product-container .image{
+     width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #F1F1F1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.Added-product-container p{
+    font-size: 60px;
+    font-weight: 600 ;
+}
+@media screen and (max-width:992px) {
+    .Added-product-container{
+        gap:0px
+    }
+}

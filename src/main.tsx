@@ -1,34 +1,56 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Root from './Root.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import HomePage from './Pages/HomePage.tsx'
-import AboutPage from './Pages/AboutPage.tsx'
-import Academics from './Pages/Academics.tsx'
+import { BrowserRouter, createBrowserRouter } from "react-router";
+import { StrictMode } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import Root from './Root.tsx';
+import SignIn from './components/Auth/SignIn.tsx';
+import SignUp from './components/Auth/SignUp.tsx';
+import DashBoard from './components/pages/Dashboard/DashBoard.tsx';
+import ShowElemnt from './components/pages/Read/ShowElemnt.tsx';
+import AddedProduct from './components/pages/Create/AddedProduct.tsx';
+import EditProduct from './components/pages/Update/EditProduct.tsx';
+;
 
-const routes=createBrowserRouter([
-  {
-    element:<Root/>,
-    path:"/",
-    children:[
-      {
-        element:<HomePage/>,
-        path:'/',
-
+const router=createBrowserRouter(
+  [
+    {
+      path:"/",
+      element:<Root/>,
+      children:[
+        {
+        path:"",
+        element:<SignIn/>
+        },
+        {
+        path:"signup",
+        element:<SignUp/>
+        },
+        {
+        path:"dashboard",
+        element:<DashBoard/>,
+      
       },
       {
-        element:<AboutPage/>,
-        path:"about"
-      },
-      {
-        element:<Academics/>,
-        path:"academics"
-      }
-    ]
-}],{basename:"/Task-3-adv/"})
+      path:"showelement/:id",
+      element:<ShowElemnt/>
+    },
+    {
+      path:"addedproduct",
+      element:<AddedProduct/>
+    },
+    {
+      path:"editproduct/:id",
+      element:<EditProduct/>
+    },
+      
+      ]
+    }
+    
+  ]
+)
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={routes}/>
-  </StrictMode>,
+      <RouterProvider router={router}/>
+  </StrictMode>
 )

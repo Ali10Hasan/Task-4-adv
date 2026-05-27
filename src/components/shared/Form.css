@@ -1,0 +1,241 @@
+.sign-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    #feaf00 0%,
+    #e6bf6c 100%
+  );
+  
+}
+
+.auth-container {
+  width: 455px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap:40px;
+  padding: 40px 20px;
+  border-radius: 20px;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.card-title h2 {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 3px;
+}
+
+.card-title p {
+  font-size: 14px;
+  color: #6c6c6c;
+}
+
+form {
+  width: 100%;
+}
+
+.card-body {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.card-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 7px;
+}
+
+.span-1 {
+  grid-column: span 1;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.card-input label {
+  color: #6c6c6c;
+  font-size: 14px;
+}
+
+.card-input input {
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  outline: none;
+  padding: 10px;
+  
+}
+
+.card-input input::placeholder {
+  color: #cdcdcd;
+  font-size: 12px;
+}
+
+.card-body button {
+  width: 100%;
+  height: 44px;
+  grid-column: span 2;
+  border-radius: 4px;
+  border: none;
+  background-color: #feaf00;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.card-body p {
+  grid-column: span 2;
+
+  text-align: center;
+  margin-top: 10px;
+}
+
+.card-body p span {
+  color: rgb(254, 199, 97);
+}
+
+.card-body a {
+  text-decoration-color: rgb(254, 199, 97);
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8ff;
+  border: dashed 1px #384eb74d;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.profile-image img {
+  object-fit: cover;
+}
+.auth-container .card-body.Added {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+}
+
+.auth-container .card-body.Added .card-input:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.auth-container .card-body.Added .card-input:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.auth-container .card-body.Added .card-input:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+ 
+}
+
+
+.auth-container .card-body.Added .card-input:nth-child(3) .profile-image {
+   width: 400px; 
+  height: 100%; 
+  min-height: 150px; 
+}
+.auth-container .card-body.Edit {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+}
+.auth-container .card-body.Edit .card-input:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.auth-container .card-body.Edit .card-input:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+.auth-container .card-body.Edit .card-input:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-items: flex-start;
+}
+
+.auth-container .card-body.Edit .card-input:nth-child(3) .image-upload {
+  width: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.auth-container .card-body.Edit .card-input:nth-child(3) .image-slot {
+  height: 160px;
+  border: 1px dashed #e1e1e1;
+  background-color: #f7f8fb;
+  border-radius: 6px;
+}
+
+.auth-container .card-body.Edit .card-input:nth-child(3) .image-slot--main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.auth-container .card-body.Edit .card-input:nth-child(3) .image-preview {
+  width: 70px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.auth-container.Added button,.auth-container.Edit button{
+  width: 120px;
+  height: 40px;
+  margin: 20px auto;
+  background-color: #feaf00;
+}
+.auth-container.Added label,.auth-container.Edit label{
+  font-size: 32px;
+}
+
+@media screen and (max-width:992px) {
+  
+    .auth-container .card-body.Added,.auth-container .card-body.Edit {
+        grid-template-columns: 400px;
+        gap:0px
+    }
+    .auth-container .card-body.Added .card-input:nth-child(1),.auth-container .card-body.Edit .card-input:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .auth-container .card-body.Added .card-input:nth-child(2),.auth-container .card-body.Edit .card-input:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .auth-container .card-body.Added .card-input:nth-child(3),.auth-container .card-body.Edit .card-input:nth-child(3) {
+        grid-column: 1;
+        grid-row: 3;
+        width: 100%;
+    }
+    
+}
