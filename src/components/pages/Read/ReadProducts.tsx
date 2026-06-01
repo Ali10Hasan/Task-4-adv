@@ -113,7 +113,13 @@ const ReadProducts = () => {
                 <SkeletonProduct key={index} />
             ))
         ) :
-         (
+        currentProducts.length === 0 ? (
+            <div className="no-results">
+              <p>No products found.</p>
+            </div>
+          )
+          :
+          (
           
            currentProducts?.map((item) => {
              return (
