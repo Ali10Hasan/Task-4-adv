@@ -254,7 +254,16 @@
     background-size: 200% 100%;
     animation: skeleton-shimmer 1.5s infinite linear;
 }
-
+.dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; 
+    height: 40px;
+    font-size: 18px;
+    color: #a0a0a0;
+    cursor: default;
+}
 @keyframes skeleton-shimmer {
     0% {
         background-position: 200% 0;

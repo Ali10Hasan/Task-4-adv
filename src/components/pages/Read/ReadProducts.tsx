@@ -160,6 +160,13 @@ const ReadProducts = () => {
         <div className="pagination-wrapper">
           <div className="pagination-window">
               {pages.map((page, index)=>{
+                if (page === "...") {
+                    return (
+                        <span key={`dots-${index}`} className="dots">
+                            ...
+                        </span>
+                    );
+                }
                   return(
                     <div className="filter-btn" key={index}
                     >
