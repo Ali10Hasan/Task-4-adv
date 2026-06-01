@@ -14,21 +14,32 @@ const ReadProducts = () => {
     }
     return url
   }
-      const [data,setData]=useState<Array<GetProducts>>([])
-      const [deleteProduct,setDeleteProduct]=useState<GetProducts>({
-          id:0,
-          name:"",
-          price:0,
-          image_url:"",
-          created_at:"",
-          updated_at:""
-      })
+  const [data,setData]=useState<Array<GetProducts>>([])
+  const [deleteProduct,setDeleteProduct]=useState<GetProducts>({
+    id:0,
+    name:"",
+    price:0,
+    image_url:"",
+    created_at:"",
+    updated_at:""
+  })
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const navigate=useNavigate()
-  const pages = [1,2,3,4,5,6,7,8,9,10];
+  const getPageNumbers = (totalPages: number): (number | string)[] => {
+        if (totalPages <= 5) {
+            return Array.from({ length: totalPages }, (_, i) => i + 1);
+        }
+        if (currentPage <= 3) {
+            return [1, 2, 3, "...", totalPages];
+        }
+        if (currentPage >= totalPages - 2) {
+            return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+        }
+        return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+    };
   
   const getItemsPerPage = () => {
     if (window.innerWidth <= 1270 && window.innerWidth>=1090) return 6;
@@ -36,6 +47,7 @@ const ReadProducts = () => {
     return 8; // للشاشات الكبيرة
   };
   const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage());
+  const pages = getPageNumbers(Math.ceil(data.length / itemsPerPage));
 
  
   
@@ -98,22 +110,23 @@ const ReadProducts = () => {
           navigate("/addedproduct")
         }}>ADD NEW PRODUCT</button>
       </div>
-
       <div className="products-container">
         {loading ? (
             Array.from({ length: itemsPerPage }).map((_, index) => (
                 <SkeletonProduct key={index} />
             ))
-        ) : (
-            currentProducts?.map((item) => {
-          return (
-            <div className="product-card" key={item.id}>
+        ) :
+         (
+          
+           currentProducts?.map((item) => {
+             return (
+               <div className="product-card" key={item.id}>
+              <DeletePop
+                deleteProduct={deleteProduct}
+                setDeleteProduct={setDeleteProduct}
+                onDeleted={handleDeleted}
+              />
               <div className='card-container' >
-        <DeletePop
-          deleteProduct={deleteProduct}
-          setDeleteProduct={setDeleteProduct}
-          onDeleted={handleDeleted}
-        />
         <img src={resolveImageUrl(item.image_url)} alt="" 
         onError={(e)=>{
             e.currentTarget.src="/DefaultImage.png"
@@ -138,7 +151,7 @@ const ReadProducts = () => {
         )}
       </div>
 
-      <div className="pagination">
+<div className="pagination">
         <div className="image" onClick={onBack}>
            <img src="/Prev.png" alt="" /> 
         </div>
@@ -152,10 +165,10 @@ const ReadProducts = () => {
                     >
                           <button 
                         
-                           onClick={()=>{setCurrentPage(index + 1)}}
-                            className={`btn ${currentPage === index + 1 ? "active" : ""}`} 
-                            
-                            style={{transform: `translateX(-${currentIndex * 65}px)`}}>
+                        onClick={()=>{setCurrentPage(index + 1)}}
+                        className={`btn ${currentPage === index + 1 ? "active" : ""}`} 
+                        
+                        style={{transform: `translateX(-${currentIndex * 65}px)`}}>
                               {page}
                           </button>
                       </div>
@@ -169,6 +182,7 @@ const ReadProducts = () => {
         </div>
       </div>
     </div>
+   
   )
 }
 

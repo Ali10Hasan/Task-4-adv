@@ -7,7 +7,6 @@ const Root = () => {
   
   return (
     <div className="root">
-
         <Outlet/>
     </div>
   )

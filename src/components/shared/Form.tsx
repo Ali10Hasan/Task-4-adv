@@ -15,6 +15,7 @@ const Form = ({
 }: formProps) => {
   const data = useRef<userData | productData>(initialData)  
   const [previewImage, setPreviewImage] = useState<string>()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate=useNavigate()
   const isEditLayout = classname === "Edit"
   const resolveImageUrl = (url: string | number | undefined) => {
@@ -43,6 +44,7 @@ const Form = ({
       <form
         onSubmit={(event: FormEvent) => {
           event.preventDefault();
+          setIsSubmitting(true);
           sendData();
         }}
       >
@@ -132,12 +134,12 @@ const Form = ({
             </div>
           ))}
 
-          <button type="submit" className={`submit-btn ${classname}`} onClick={()=>{
+          <button type="submit" className={`submit-btn ${classname}`} disabled={isSubmitting}  onClick={()=>{
             if(classname === "Added" || classname === "Edit"){
                 navigate("/dashboard")
             }
           }}>
-            {btnText}
+            {isSubmitting ? "Loading..." : btnText}
           </button>
 
           <p>
