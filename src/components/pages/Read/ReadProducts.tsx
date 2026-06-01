@@ -66,17 +66,14 @@ const ReadProducts = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [])
   const onNext = () => {
-      
-      if(currentIndex < pages.length - 4){
-          setCurrentIndex(currentIndex + 1);
-      }
+      setCurrentIndex(currentIndex + 1);
+      setCurrentPage(currentPage + 1);
   }
-  
+
   const onBack = () => {
-      
-      if(currentIndex > 0){
-          setCurrentIndex(currentIndex - 1);
-      }
+
+      setCurrentIndex(currentIndex - 1);
+      setCurrentPage(currentPage - 1);
   }
 
   const filteredProducts = data?.filter((item) =>
@@ -152,9 +149,9 @@ const ReadProducts = () => {
       </div>
 
 <div className="pagination">
-        <div className="image" onClick={onBack}>
+        <button className="image" onClick={onBack} disabled={currentPage == 1}>
            <img src="/Prev.png" alt="" /> 
-        </div>
+        </button>
        
         
         <div className="pagination-wrapper">
@@ -173,9 +170,9 @@ const ReadProducts = () => {
                           <button 
                         
                         onClick={()=>{setCurrentPage(index + 1)}}
-                        className={`btn ${currentPage === index + 1 ? "active" : ""}`} 
+                        className={`btn ${currentPage === index + 1? "active" : ""}`} 
                         
-                        style={{transform: `translateX(-${currentIndex * 65}px)`}}>
+                        style={{ transform: pages.length > 4 ? `translateX(-${currentIndex * 65}px)` : "none" }}>
                               {page}
                           </button>
                       </div>
@@ -184,9 +181,9 @@ const ReadProducts = () => {
           </div>
         </div>
         
-        <div className="image" onClick={onNext} >
+        <button className="image" onClick={onNext} disabled={currentPage == pages.length}>
         <img src="/Next.png" alt="" />
-        </div>
+        </button>
       </div>
     </div>
    
