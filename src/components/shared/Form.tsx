@@ -1,7 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import type { formProps, productData, userData } from "../../interface/interface"
+import type { formProps } from "../../interface/interface"
 import { useRef, useState, type FormEvent } from "react"
-const Form = ({
+
+// جعل الكامبوننت مرنًا <T extends object> لاستقبال أي نوع بيانات
+const Form = <T extends object>({
   logo,
   title,
   subTitle,
@@ -12,34 +14,36 @@ const Form = ({
   classname,
   setData,
   initialData,
-}: formProps) => {
-  const data = useRef<userData | productData>(initialData)  
+}: formProps<T>) => {
+  // ربط الـ useRef بنوع البيانات الممرر T ديناميكياً
+  const data = useRef<T>(initialData)  
   const [previewImage, setPreviewImage] = useState<string>()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [password,setPassword]=useState({
-    pass:"",
-    rePass:""
+  const [password, setPassword] = useState({
+    pass: "",
+    rePass: ""
   })
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const isEditLayout = classname === "Edit"
   const hasPasswordMismatch = password.rePass.length > 0 && password.pass !== password.rePass
-  const resolveImageUrl = (url: string | number | undefined) => {
+  
+  // تصحيح نوع المعامل لـ input.value ليستقبل Blob أو الأنواع الأخرى دون اعتراض
+  const resolveImageUrl = (url: string | number | Blob | undefined) => {
     if (!url || typeof url !== 'string') return ""
     if (url.startsWith("http://dashboard-i552.onrender.com")) {
         return url.replace("http://", "https://")
     }
     return url
   }
+  
   const sendData = () => {
     setData(data.current)
   }
-       
  
   return (
     <div className={`auth-container ${classname}`}>
       <div className="card-header">
         <img src={logo} alt="" />
-
         <div className="card-title">
           <h2>{title}</h2>
           <p>{subTitle}</p>
@@ -73,49 +77,33 @@ const Form = ({
                     onChange={(e) => {
                       const file = e.target.files?.[0]
                       if (file) {
-                       data.current = { ...data.current, [input.name]: file } 
+                        data.current = { ...data.current, [input.name]: file } 
                         setPreviewImage(URL.createObjectURL(file))
                       }
                     }}
                   />
                   {isEditLayout ? (
                     <div className="image-upload">
-                      <label
-                        htmlFor={input.name}
-                        className="image-slot"
-                      />
-                      <label
-                        htmlFor={input.name}
-                        className="image-slot image-slot--main"
-                      >
+                      <label htmlFor={input.name} className="image-slot" />
+                      <label htmlFor={input.name} className="image-slot image-slot--main">
                         <img
                           className="image-preview"
                           src={
                               previewImage
                                 ? previewImage
-                                : input.value
+                                : input.value && !(input.value instanceof Blob)
                                 ? resolveImageUrl(input.value)
                                 : "/Upload.png"
                           }
                           alt=""
                         />
                       </label>
-                      <label
-                        htmlFor={input.name}
-                        className="image-slot"
-                      />
+                      <label htmlFor={input.name} className="image-slot" />
                     </div>
                   ) : (
-                    <label
-                      htmlFor={input.name}
-                      className="profile-image"
-                    >
+                    <label htmlFor={input.name} className="profile-image">
                       <img
-                        src={
-                          previewImage
-                            ? previewImage
-                            : "/Upload.png"
-                        }
+                        src={previewImage ? previewImage : "/Upload.png"}
                         style={{
                           width: previewImage ? 100 : 49,
                           height: previewImage ? 100 : 45,
@@ -127,45 +115,43 @@ const Form = ({
                 </>
               ) : 
               (
-                
                 <input
-                className={input.name === "password_confirmation" && hasPasswordMismatch ? "input-error" : ""}
+                  className={input.name === "password_confirmation" && hasPasswordMismatch ? "input-error" : ""}
                   type={input.type}
                   placeholder={input.placeholder}
                   name={input.name}
-                  onChange={(e) =>{
+                  onChange={(e) => {
                     data.current = { ...data.current, [input.name]: e.target.value } 
-                    classname==="signup-form" && input.name === "password" && setPassword({...password,pass:e.target.value})
-                    classname==="signup-form" && input.name === "password_confirmation" && setPassword({...password,rePass:e.target.value})
+                    classname === "signup-form" && input.name === "password" && setPassword({ ...password, pass: e.target.value })
+                    classname === "signup-form" && input.name === "password_confirmation" && setPassword({ ...password, rePass: e.target.value })
                   }}
-                  defaultValue={input.value}
+                  // منع تمرير كائن الـ Blob كقيمة نصية للـ Input البرمجي لتفادي أخطاء الـ Build
+                  defaultValue={input.value instanceof Blob ? "" : input.value}
                 />
               )}
               
               {input.name === "password_confirmation" && hasPasswordMismatch && (
-                <p className="error" >Passwords do not match</p>
+                <p className="error">Passwords do not match</p>
               )}
-              </div>
+            </div>
           ))}
 
-          <button type="submit" className={`submit-btn ${classname}`} disabled={isSubmitting}  onClick={()=>{
-            if(classname === "Added" || classname === "Edit"){
-                navigate("/dashboard")
-            }
-          }}>
+          <button 
+            type="submit" 
+            className={`submit-btn ${classname}`} 
+            disabled={isSubmitting}  
+            onClick={() => {
+              if (classname === "Added" || classname === "Edit") {
+                  navigate("/dashboard")
+              }
+            }}
+          >
             {isSubmitting ? "Loading..." : btnText}
           </button>
 
           <p>
             {hint}
-
-            <NavLink
-              to={
-                actionText === "Create One"
-                  ? "/signup"
-                  : "/"
-              }
-            >
+            <NavLink to={actionText === "Create One" ? "/signup" : "/"}>
               <span>{actionText}</span>
             </NavLink>
           </p>
