@@ -47,7 +47,9 @@ const router=createBrowserRouter(
       ]
     }
     
-  ]
+  ],{
+    basename: "/Dashboard-template"
+  }
 )
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

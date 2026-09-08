@@ -58,7 +58,8 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: end;
-  gap: 7px;
+  gap: 6px;
+  min-height: 60px;
 }
 
 .span-1 {
@@ -216,6 +217,21 @@ form {
 }
 .auth-container.Added label,.auth-container.Edit label{
   font-size: 32px;
+}
+.error {
+  position: relative;
+  min-height: 18px;
+  top: 20px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #d93025;
+  text-align: left
+}
+
+.input-error {
+  position: fixed;
+  border-color: #d93025 !important;
+  box-shadow: 0 0 0 1px rgba(217, 48, 37, 0.15);
 }
 
 @media screen and (max-width:992px) {

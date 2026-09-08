@@ -1,0 +1,34 @@
+.custom-alert {
+  position: fixed;
+  top: -100px; /* إخفاء الإشعار خارج الشاشة من الأعلى */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  color: #333;
+  font-weight: bold;
+  z-index: 9999;
+  transition: all 0.4s ease; /* إضافة نعومة للحركة لجميع الخصائص */
+  visibility: hidden; /* إخفائه برمجياً لتجنب بقاء أي مساحة له */
+  opacity: 0;
+  pointer-events: none;
+  max-width: 90vw; /* تجنب خروج الإشعار عن عرض الشاشة بالأجهزة الصغيرة الذي يسبب سكرول أفقي */
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.custom-alert.show {
+  top: 20px; /* النزول للأسفل عند الظهور */
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.custom-alert.error {
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+}
+
+.custom-alert.success {
+  box-shadow: 0 4px 15px rgba(0, 128, 0, 0.4);
+}

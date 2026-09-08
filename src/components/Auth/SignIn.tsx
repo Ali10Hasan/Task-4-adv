@@ -1,11 +1,15 @@
 import Form from "../shared/Form"
-import type {  userData } from "../../interface/interface"
+import type {  ShowAlertType, userData } from "../../interface/interface"
 import "../shared/Form.css"
 import {useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useOutletContext } from "react-router-dom"
 import { logininputs} from "../../data"
+import axios from "axios"
+
 const SignIn = () => {
   const navigate=useNavigate()
+  const {showAlert} = useOutletContext<ShowAlertType>(); 
+ 
   const initialData: userData = {
     email:"",
     password:"",
@@ -14,25 +18,34 @@ const SignIn = () => {
   useEffect(()=>{
     const login=()=>{
       if(data.email && data.password){
-        const body=new FormData();
-        body.append("email",data.email);
-        body.append("password",data.password);
-        fetch("https://dashboard-i552.onrender.com/api/login",{
-                  method:"POST",
+        // const body=new FormData();
+        // body.append("email",data.email);
+        // body.append("password",data.password);
+        axios.post("https://dashboard-i552.onrender.com/api/login", data, {
                   headers:{
                       "accept":"application/json",
-                  },
-                  body
+                  }
               })
-              .then(res=>res.json())
-              .then(res=>{ 
-                if(res.token) {
-                  localStorage.setItem("token",`Bearer ${res.token}`)
-                  localStorage.setItem("user",JSON.stringify(res.user))
-                  navigate("/dashboard")
+              .then(res => { 
+                const responseData = res.data;
+                if(responseData.token) {
+                  localStorage.setItem("token",`Bearer ${responseData.token}`)
+                  localStorage.setItem("user",JSON.stringify(responseData.user))
+                  
+                  // إظهار إشعار النجاح
+                  showAlert("Login successful", "success");
+                  
+                  // تأخير الانتقال لمدة ثانية ونصف لرؤية الإشعار براحة
+                  setTimeout(() => {
+                    navigate("/dashboard")
+                  }, 1500);
                 }
               })
-              .catch((err)=>console.log(err))
+              .catch(err => {
+                console.log("Hi", err);
+                const errorMsg = err.response?.data?.msg || err.message || "فشل تسجيل الدخول";
+                showAlert(errorMsg, "error");
+              })
       }}
       login();
   },[data])

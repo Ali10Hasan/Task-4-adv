@@ -11,15 +11,18 @@ const SignUp = () => {
     last_name:"",
     email:"",
     password:"",
+    password_confirmation:"",
     profile_image_url:undefined
   }
   const [data,setData]=useState<userData>(initialData)
   useEffect(()=>{
     
           if(data.email && data.first_name && data.last_name && data.password  && data.profile_image_url){
+            console.log(data)
               const body=new FormData();
               body.append("email",data.email);
               body.append("password",data.password);
+              body.append("password_confirmation",data.password_confirmation);
               body.append("first_name",data.first_name);
               body.append("last_name",data.last_name);
               body.append("user_name",data.first_name+" "+data.last_name);
@@ -33,9 +36,7 @@ const SignUp = () => {
                   body:body
               })
               .then(res=>res.json())
-              .then(res=>{
-                
-                
+              .then(res=>{      
                   localStorage.setItem("token",`Bearer ${res.data.token}`)
                   localStorage.setItem("user",JSON.stringify(res.data.user))
                   navigate("/dashboard")

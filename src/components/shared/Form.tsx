@@ -16,8 +16,13 @@ const Form = ({
   const data = useRef<userData | productData>(initialData)  
   const [previewImage, setPreviewImage] = useState<string>()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [password,setPassword]=useState({
+    pass:"",
+    rePass:""
+  })
   const navigate=useNavigate()
   const isEditLayout = classname === "Edit"
+  const hasPasswordMismatch = password.rePass.length > 0 && password.pass !== password.rePass
   const resolveImageUrl = (url: string | number | undefined) => {
     if (!url || typeof url !== 'string') return ""
     if (url.startsWith("http://dashboard-i552.onrender.com")) {
@@ -120,18 +125,27 @@ const Form = ({
                     </label>
                   )}
                 </>
-              ) : (
+              ) : 
+              (
+                
                 <input
+                className={input.name === "password_confirmation" && hasPasswordMismatch ? "input-error" : ""}
                   type={input.type}
                   placeholder={input.placeholder}
                   name={input.name}
-                  onChange={(e) =>
+                  onChange={(e) =>{
                     data.current = { ...data.current, [input.name]: e.target.value } 
-                  }
+                    classname==="signup-form" && input.name === "password" && setPassword({...password,pass:e.target.value})
+                    classname==="signup-form" && input.name === "password_confirmation" && setPassword({...password,rePass:e.target.value})
+                  }}
                   defaultValue={input.value}
                 />
               )}
-            </div>
+              
+              {input.name === "password_confirmation" && hasPasswordMismatch && (
+                <p className="error" >Passwords do not match</p>
+              )}
+              </div>
           ))}
 
           <button type="submit" className={`submit-btn ${classname}`} disabled={isSubmitting}  onClick={()=>{

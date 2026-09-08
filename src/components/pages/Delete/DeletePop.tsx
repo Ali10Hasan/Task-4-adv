@@ -39,7 +39,7 @@ const DeletePop = ({
                 id:0,
                 name:"",
                 price:0,
-            image_url: "",
+                image_url: "",
                 created_at:"",
                 updated_at:"",
         })

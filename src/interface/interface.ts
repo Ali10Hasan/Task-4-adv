@@ -5,6 +5,7 @@ export interface userData {
     user_name?:string,
     email:string,
     password:string,
+    password_confirmation?:string,
     profile_image_url?:Blob
 }
 
@@ -59,3 +60,6 @@ export interface GetProducts{
     updated_at?:string
 }
 export type AddProduct = productData
+export type ShowAlertType={
+    showAlert:(message:string,type:"success"|"error")=>void
+};
